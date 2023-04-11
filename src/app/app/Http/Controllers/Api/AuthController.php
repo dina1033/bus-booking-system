@@ -10,22 +10,22 @@ use App\Service\AuthService;
 
 class AuthController extends ApiController
 {
-    private $authservice;
+    private $auth_service;
 
-    public function __construct(AuthService $authservice)
+    public function __construct(AuthService $auth_service)
     {
-        $this->authservice = $authservice;
+        $this->auth_service = $auth_service;
     }
 
     public function register(RegisterRequest $request)
     {
-        $token = $this->authservice->store($request->all());
+        $token = $this->auth_service->store($request->all());
         return $this->successWithData('you have been registered successfully',$token);
     }
 
     public function login(LoginRequest $request)
     {
-        $user = $this->authservice->login($request->all());
+        $user = $this->auth_service->login($request->all());
         if(!$user)
             return $this->failure('your credentials doesn\'t match our records',422);
 
