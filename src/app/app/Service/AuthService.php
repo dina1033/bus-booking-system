@@ -4,12 +4,10 @@ namespace App\Service;
 
 use App\Repository\AuthRepositoryInterface;
 use App\Service\BaseService;
-use App\Traits\RespondsWithHttpStatus;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService extends BaseService
 {
-    use RespondsWithHttpStatus;
     protected $repo;
     public function __construct(AuthRepositoryInterface $repo)
     {
@@ -28,12 +26,11 @@ class AuthService extends BaseService
     }
 
     function login(array $data){
-
          $user = $this->repo->getByEmail($data['email']);
          if ($user && Hash::check($data['password'], $user->password)) {
              return $user;
          }
-
          return false;
+
     }
 }
