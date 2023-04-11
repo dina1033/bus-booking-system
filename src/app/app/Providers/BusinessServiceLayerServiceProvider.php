@@ -17,10 +17,7 @@ class BusinessServiceLayerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
         $this->app->bind(ServiceInterface::class, BaseService::class);
-
-
     }
 
     /**
