@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Station extends Model
 {
     use HasFactory;
+    protected $guarded=[];
+
+    public function trips(){
+        return $this->belongsToMany(Trip::class , 'trip_stations')->withPivot('order');
+    }
 }
