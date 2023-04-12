@@ -47,17 +47,6 @@ class ReservationRepository extends BaseRepository implements ReservationReposit
         return ['status' =>true , 'message'=>'the seat is successfully reserved.'] ;
     }
 
-    public function checkAvailability($seat , $data){
-        foreach($seat as $seat_reservation){
-            if($seat_reservation->to_station_id <= $data['from_station_id'] || $seat_reservation->from_station_id >= $data['to_station_id'] ){
-                continue;
-            }else{
-                return false;
-            }
-        }
-        return true;
-    }
-
     public function getUserTrip($user_id){
         return $this->model->where('user_id',$user_id)->value('trip_id');
     }

@@ -45,7 +45,7 @@ class ReservationService extends BaseService
             return $this->repo->addReservation($data,$trip,$seat->id);
         }else{
             foreach($reserved_seats as $key=>$seat){
-               if($this->repo->checkAvailability($seat,$data))
+               if($this->checkAvailability($seat,$data))
                     return $this->repo->addReservation($data,$trip,$key);
             }
             return ['status' =>false , 'message'=>'sorry there is no available seat'];
@@ -54,17 +54,30 @@ class ReservationService extends BaseService
 
     function listAvailableSeats(array $data){
         $trip_id = $this->repo->getUserTrip($data['user_id']);
+        if(!$trip_id)
+            return ['status'=>false , 'message'=>'sorry this is not your trip you can book a seat and try again'];
         $trip = $this->trip->findById($trip_id);
         $reserved_seats = $this->repo->getReservedSeats($trip_id);
         $available=[];
         if(count($reserved_seats) == 0){
-            return array_unique($this->seat->getBusSeats($trip));
+            return ['status'=>true , 'data'=>array_unique($this->seat->getBusSeats($trip))];
         }
         foreach($reserved_seats as $key=>$seat){
-            if($this->repo->checkAvailability($seat,$data)){
+            if($this->checkAvailability($seat,$data)){
                 $available[]=$key;
             }
         }
-        return array_unique($available);
+        return ['status'=>true , 'data'=>array_unique($available)];
+    }
+
+    public function checkAvailability($seat , $data){
+        foreach($seat as $seat_reservation){
+            if($seat_reservation->to_station_id <= $data['from_station_id'] || $seat_reservation->from_station_id >= $data['to_station_id'] ){
+                continue;
+            }else{
+                return false;
+            }
+        }
+        return true;
     }
 }

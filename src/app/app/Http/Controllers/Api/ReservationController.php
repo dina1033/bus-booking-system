@@ -35,10 +35,11 @@ class ReservationController extends ApiController
     public function listAvailableSeats(AvailableSeatRequest $request){
         $data = $request->merge(['user_id' =>$request->user()->id]);
         $response = $this->reservation->listAvailableSeats($data->all());
-
+        if(!$response['status'])
+            return $this->failure($response['message']);
         if(count($response) == 0 )
             return $this->failure('sorry there is no available seats between this stations');
 
-        return $this->successWithData('there is a list of the number of available seats',$response);
+        return $this->successWithData('there is a list of the number of available seats',$response['data']);
     }
 }

@@ -13,12 +13,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\Sanctum;
 
 class ReservationTest extends TestCase
 {
     use RefreshDatabase;
-
+    protected function refreshDatabase(){}
+    
     public function test_user_can_book_seat()
     {
         // Create a bus
@@ -100,7 +102,6 @@ class ReservationTest extends TestCase
             'to_station_id' => 5,
         ]);
         Sanctum::actingAs($user, ['api']);
-        // Make a request to book a seat
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $user->createToken('TestToken')->plainTextToken,
         ])->post('/api/book-seat', [
