@@ -18,7 +18,7 @@ This is a fleet management system for a bus-booking service, built using Laravel
 ### Running the Project
 
 1. Clone the repository to your local machine using `git clone`.
-2. Run the migrations and seed the database using `docker-compose exec php php artisan migrate:fresh --seed`.
+2. Run `docker compose up`.
 
 ### Running the Test Cases
 
