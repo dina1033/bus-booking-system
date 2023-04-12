@@ -22,11 +22,12 @@ class ReservationController extends ApiController
 
     public function bookSeat(Request $request){
         $data = $request->merge(['user_id' =>$request->user()->id]);
-        return $response = $this->reservation->bookSeat($data->all());
+
+        $response = $this->reservation->bookSeat($data->all());
         if($response['status'] == false)
             return $this->failure($response['message']);
 
-        return $this->success($response->message);
+        return $this->success($response['message']);
     }
 
     public function listAvailableSeats(Request $request){

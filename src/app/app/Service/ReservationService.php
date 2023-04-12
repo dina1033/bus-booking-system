@@ -20,9 +20,6 @@ class ReservationService extends BaseService
     }
 
     function checkValidations($trip ,$data){
-        if(!$trip)
-            return ['status' =>false , 'message'=>'you cannot book on this trip'];
-
         $stations = $trip->stations->pluck('id')->toArray();
         if (!in_array($data['from_station_id'], $stations) || !in_array($data['to_station_id'], $stations))
             return ['status' =>false , 'message'=>'sorry this stations is not in this trip'];
@@ -37,11 +34,10 @@ class ReservationService extends BaseService
 
     function bookSeat(array $data){
         $trip = $this->trip->findById($data['trip_id'],['*'],['stations']);
-
         $validations = $this->checkValidations($trip ,$data);
         if($validations['status'] !=true)
             return $validations;
-            
+
         $reserved_seats = $this->repo->getReservedSeats($data['trip_id']);
         $available_seats = $this->seat->getAvailableSeats($trip);
         if(count($available_seats) > 0){

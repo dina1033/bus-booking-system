@@ -24,6 +24,11 @@
     - Run the migrations and seed the database using `php artisan migrate --seed`.
 3. Start the local development server using `docker compose up`.
 
+### Running the Test Cases
+
+1. Create a new database called 'task_test'.
+2. Run the test cases using `php artisan test`.
+
 # API Documentation
 
 ## Register Endpoint

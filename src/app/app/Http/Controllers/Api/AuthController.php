@@ -20,7 +20,7 @@ class AuthController extends ApiController
     public function register(RegisterRequest $request)
     {
         $token = $this->auth_service->store($request->all());
-        return $this->successWithData('you have been registered successfully',$token);
+        return $this->successWithData('Registration successful',$token);
     }
 
     public function login(LoginRequest $request)
@@ -30,6 +30,6 @@ class AuthController extends ApiController
             return $this->failure('your credentials doesn\'t match our records',422);
 
         $token = $user->createToken('access_token')->plainTextToken;
-        return $this->successWithData('تم الدخول بنجاح', ['user'=>UserLoginResource::make($user),'access_token'=>$token], 200);
+        return $this->successWithData('Login successful', ['user'=>UserLoginResource::make($user),'access_token'=>$token], 200);
     }
 }

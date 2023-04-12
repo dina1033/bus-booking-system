@@ -42,7 +42,7 @@ class ReservationRepository extends BaseRepository implements ReservationReposit
             'to_station_id' => $request['to_station_id'],
         ]);
         if(!$reservation)
-            return ['status' =>false , 'message'=>'sorry there is no available seat'];
+            return ['status' =>false , 'message'=>'sorry some thing wont wrong try again later.'];
 
         return ['status' =>true , 'message'=>'the seat is successfully reserved.'] ;
     }
