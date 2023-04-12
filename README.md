@@ -93,7 +93,7 @@ List the available seats to be booked for your trip by sending start and end
 stations.
 .
 
-**Request Body:**
+**Request Parameters:**
 
 ```json
 {
