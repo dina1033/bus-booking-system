@@ -15,9 +15,13 @@ class TripSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
         DB::table('trip_stations')->truncate();
+        DB::table('reservations')->truncate();
+
         DB::table('trips')->truncate();
         DB::table('stations')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
 
         $station1 = Station::create([
             'name' => 'Cairo',

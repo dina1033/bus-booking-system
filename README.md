@@ -1,5 +1,10 @@
 # Bus Booking System
 
+## Introduction
+
+This is a fleet management system for a bus-booking service, built using Laravel web framework and a relational database. The system is designed to manage trips between cities in Egypt and allow users to book seats on those trips. Each trip has a predefined route that includes multiple stations, and each bus on the trip has 12 available seats that can be booked by users. The system provides two APIs for consumers, which allow them to book seats on a trip if available, and get a list of available seats for their trip by specifying the start and end stations.
+
+
 ## Technology Used
 
 - Laravel.
@@ -13,17 +18,11 @@
 ### Running the Project
 
 1. Clone the repository to your local machine using `git clone`.
-2. In the php container 
-    - install the required dependencies by running `composer install`.
-    - Create a copy of the `.env.example` file and name it `.env`.
-    - Update the `DB_DATABASE` value in the `.env` file to point to your database.
-    - Run the migrations and seed the database using `php artisan migrate --seed`.
-3. Start the local development server using `docker compose up`.
+2. Run the migrations and seed the database using `docker-compose exec php php artisan migrate:fresh --seed`.
 
 ### Running the Test Cases
 
-1. Create a new database called 'task_test'.
-2. Run the test cases using `php artisan test`.
+1. Run the test cases using `docker-compose exec php php artisan test`.
 
 # API Documentation
 

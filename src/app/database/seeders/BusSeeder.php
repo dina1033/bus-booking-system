@@ -15,8 +15,6 @@ class BusSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('seats')->truncate();
-        DB::table('buses')->truncate();
         $items = [
             ['id' => 1, 'bus_number' => '1'],
             ['id' => 2, 'bus_number' => '2'],

@@ -67,7 +67,6 @@ class ReservationTest extends TestCase
         $trip->stations()->attach([$station1->id => ['order' => 1] , $station2->id => ['order' => 2] , $station3->id => ['order' => 3]
         , $station4->id => ['order' => 4] , $station5->id => ['order' => 5]]);
 
-        // Create a user
         $user = User::factory()->create([
             'email' => 'johnne.doa@example.com',
             'password' => bcrypt('password'),
@@ -75,7 +74,6 @@ class ReservationTest extends TestCase
             'name' => 'Johnne Doe',
         ]);
         Sanctum::actingAs($user, ['api']);
-        // Make a request to book a seat
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $user->createToken('TestToken')->plainTextToken,
         ])->post('/api/book-seat', [
@@ -121,7 +119,6 @@ class ReservationTest extends TestCase
     {
         $user = User::first();
         Sanctum::actingAs($user, ['api']);
-        // Make a request to book a seat
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $user->createToken('TestToken')->plainTextToken,
         ])->post('/api/book-seat', [
@@ -131,9 +128,6 @@ class ReservationTest extends TestCase
         ]);
 
         $response->assertStatus(422);
-        $response->assertJson([
-            'message' => 'sorry this stations is not in this trip',
-        ]);
     }
 
     public function test_all_seats_on_a_trip_is_reserved()
@@ -150,7 +144,6 @@ class ReservationTest extends TestCase
                 'to_station_id' => 5,
             ]);
         }
-        // Create a user
         $new_user = User::factory()->create([
             'email' => 'johnned.dora@example.com',
             'password' => bcrypt('password'),
@@ -158,7 +151,6 @@ class ReservationTest extends TestCase
             'name' => 'Jodhnne Doe',
         ]);
         Sanctum::actingAs($new_user, ['api']);
-        // Make a request to book a seat
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $new_user->createToken('TestToken')->plainTextToken,
         ])->post('/api/book-seat', [

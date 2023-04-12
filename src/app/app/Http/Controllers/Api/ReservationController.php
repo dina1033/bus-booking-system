@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\AvailableSeatRequest;
+use App\Http\Requests\Api\BookSeatRequest;
 use App\Models\Reservation;
 use App\Models\Seat;
 use App\Models\Trip;
@@ -20,7 +22,7 @@ class ReservationController extends ApiController
         $this->reservation = $reservation;
     }
 
-    public function bookSeat(Request $request){
+    public function bookSeat(BookSeatRequest $request){
         $data = $request->merge(['user_id' =>$request->user()->id]);
 
         $response = $this->reservation->bookSeat($data->all());
@@ -30,7 +32,7 @@ class ReservationController extends ApiController
         return $this->success($response['message']);
     }
 
-    public function listAvailableSeats(Request $request){
+    public function listAvailableSeats(AvailableSeatRequest $request){
         $data = $request->merge(['user_id' =>$request->user()->id]);
         $response = $this->reservation->listAvailableSeats($data->all());
 
