@@ -1,9 +1,5 @@
 # Bus Booking System
 
-## Introduction
-
-
-
 ## Technology Used
 
 - Laravel.
